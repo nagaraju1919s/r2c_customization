@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner,access_res_partner,model_res_partner,,1,1,1,1
+access_product_template,access_product_template,model_product_template,,1,1,1,1
+access_equipment,access_equipment,model_equipment,,1,1,1,1
+access_equipment_line,access_equipment_line,model_equipment_line,,1,1,1,1
+access_equipment_cancel,access_equipment_cancel,model_equipment_cancel,,1,1,1,1

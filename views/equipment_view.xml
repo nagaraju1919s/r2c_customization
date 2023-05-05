@@ -1,0 +1,110 @@
+<odoo>
+    <!-- Equipment Form view -->
+
+    <record id="equipment_form_view" model="ir.ui.view">
+            <field name="name">equipment.form</field>
+            <field name="model">equipment</field>
+            <field name="arch" type="xml">
+              <form string="Sales Order" class="o_sale_order" js_class="sale_discount_form">
+                <header>
+                    <button name="send_approval" string="Send approval" type="object" class="oe_highlight" attrs="{'invisible':[('status_bar','!=','draft')]}"/>
+
+                    <button name="wait_approval" string="Waiting for Approval" type="object" class="oe_highlight" attrs="{'invisible':[('status_bar','!=','waiting for approval')]}" groups="test1.group_admin"/>
+
+                    <button name="cancle" string="Cancle" type="object" class="oe_highlight" attrs="{'invisible':[('status_bar','=','draft')]}"/>
+                    <field name = "status_bar" widget = "statusbar" statusbar_visible = "draft,waiting for approval,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="machine_name"/>
+                        </h1>
+                    </div>
+                    <group name="sale_header">
+                        <group name="partner_details">
+                            <field name = "checking" widget="radio"/>
+                            <field name = "product_id" groups="test1.group_tester"/>
+                            <field name = "default_code" groups="test1.group_admin"/>
+                        </group>
+                        <group>
+                            <field name = "count"/>
+                            <field name = "dob"/>
+                            <field name = "total_cost"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name = "purchase" string = "Purchase">
+                            <field name = "equipment_line_ids">
+                                <tree editable="top">
+                                    <field name = "purchase_order_id"/>
+                                    <field name = "product_id"/>
+                                    <field name = "no_of_purchase"/>
+                                    <field name = "uom_po_id"/>
+                                    <field name = "cost"/>
+                                </tree> 
+                            </field>    
+                        </page>
+                    </notebook>   
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Equipment Tree View -->
+
+    <record id="equipment_tree_view" model="ir.ui.view">
+        <field name="name">equipment.tree</field>
+        <field name="model">equipment</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment">
+                <field name="machine_name"/>
+                <!-- <field name = "b_name"/>
+                <field name = "b_mobno"/> -->
+            </tree>
+        </field>
+    </record>
+    
+    <!-- Equipment Action -->
+
+    <record model="ir.actions.act_window" id="equipment_action">
+        <field name="name">equipment</field>
+        <field name="res_model">equipment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="equipment_menu" name="Equipment" sequence="2" action="equipment_action"/>
+    
+    <!-- Draft Action -->
+
+    <record model="ir.actions.act_window" id="equipment_draft_action">
+        <field name="name">equipment</field>
+        <field name="res_model">equipment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status_bar', '=', 'draft')]</field>
+    </record>
+    <menuitem id="draft_menu" name="Draft" parent="equipment_menu" action="equipment_draft_action"/>
+    
+    <!-- Approval Action -->
+
+    <record model="ir.actions.act_window" id="equipment_approval_action">
+        <field name="name">equipment</field>
+        <field name="res_model">equipment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status_bar', '=', 'waiting for approval')]</field>
+    </record>
+    <menuitem id="arrpoval_menu" name="Approval" parent="equipment_menu" action="equipment_approval_action"/>
+    
+    <!-- Approved Action -->
+    
+    <record model="ir.actions.act_window" id="equipment_approved_action">
+        <field name="name">equipment</field>
+        <field name="res_model">equipment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status_bar', '=', 'approved')]</field>
+    </record>
+    <menuitem id="approved_menu" name="Approved" parent="equipment_menu" action="equipment_approved_action"/>
+</odoo>

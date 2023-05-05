@@ -1,0 +1,14 @@
+<odoo>
+	<data>
+		<record id="action_print_machine_card" model="ir.actions.report">
+            <field name="name">Machine Details</field>
+            <field name="model">equipment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">test1.report_machine_label</field>
+            <field name="report_file">test1.report_machine_label</field>
+            <field name="print_report_name">'Machine'</field>
+            <field name="binding_model_id" ref="model_equipment"/>
+            <field name="binding_type">report</field>
+        </record>
+   </data>
+</odoo>
